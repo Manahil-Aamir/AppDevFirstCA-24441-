@@ -139,30 +139,26 @@ class _MyHomePageState extends State<MyHomePage> {
     children:
     
     <Widget>[
-Align(
-          alignment: Alignment.bottomLeft,
-      child: FloatingActionButton(
+FloatingActionButton(
         onPressed: _decrementCounter,
         tooltip: 'Decrement',
         child: const Icon(Icons.minimize_rounded),
       ),
-),
-      Align(
-          alignment: Alignment.bottomCenter,
-      child: FloatingActionButton(
+
+    
+      FloatingActionButton(
         onPressed: _reset,
         tooltip: 'Reset',
         child: const Icon(Icons.reset_tv),
       ),
-      ),
-       Align(
-          alignment: Alignment.bottomRight,
-      child: FloatingActionButton(
+      
+      
+      FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
-       ),
+       
     ])
  // This trailing comma makes auto-formatting nicer for build methods.
     ));
