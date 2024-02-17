@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'model/product.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,148 +14,197 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyanAccent),
-        useMaterial3: false,
-      
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      theme: ThemeData.dark().copyWith(primaryColor: Colors.purple,),
+      home: const LoginPage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key, required this.title});
 
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  bool _hide = false;
+class _LoginPageState extends State<LoginPage> {
 
-  void _Visible() {
-  setState(() {
-    _hide = !_hide;
-  });
-}
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Login'),
 
-        actions: <Widget>[
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          children: <Widget>[
+            const SizedBox(height: 80.0),
+            Column(
+              children: <Widget>[
+                Image.asset('assets/flutterlogo.png', height: 50.0, width:50.0),
+                const SizedBox(height: 16.0),
+                const Text('SHRINE'),
+              ],
+            ),
+            const SizedBox(height: 120.0),
+            TextField(
+              controller: _usernameController,
+              decoration: const InputDecoration(
+                filled: true,
+                labelText: 'Username',
+              ),
+            ),
+            const SizedBox(height: 12.0),
+                       
+            TextField(
+              controller: _passwordController,
+              decoration: const InputDecoration(
+                filled: true,
+                labelText: 'Password',
+              ),
+              obscureText: true,
+            ),
 
-          
+            OverflowBar(
+              alignment: MainAxisAlignment.end,
+              children: <Widget>[
+               TextButton(
+                  child: const Text('CANCEL'),
+                  onPressed: () {
+                    _usernameController.clear();
+                    _passwordController.clear();
+                  },
+                ),
+                ElevatedButton(
+                  child: const Text('NEXT'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MyWidget()),
+                      );
 
-        ],
-      ),
-      body:SingleChildScrollView(
-      child: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-
-          mainAxisAlignment: MainAxisAlignment.start,
-        
-children: <Widget>[
-  Padding(
-    padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
-    child: SizedBox(
-      height: 85,
-      width: 85,
-      child: ClipOval(
-        child: Image.asset(
-          "assets/flutterlogo.png",
-          fit: BoxFit.cover,
-        ),
-      ),
-    ),
-  ),
-   Padding(
-   padding: EdgeInsets.fromLTRB(30.0, 20.0, 20.0, 0.0),
-    child: TextField(
-    decoration: InputDecoration(
-      border: OutlineInputBorder(),
-      labelText: 'Email',
-    ),
-  ),
-   ),
-   Padding(
-        padding: EdgeInsets.fromLTRB(30.0, 10.0, 20.0, 0.0),
-    child: TextField(
-       obscureText: _hide,
-    decoration: InputDecoration(
-      border: OutlineInputBorder(),
-      labelText: 'Password',
-      suffixIcon: IconButton(
-        icon: Icon(Icons.remove_red_eye_rounded),
-        onPressed: _Visible)
-
-    ),
-  ),
-   ),
-     
-Padding(padding: EdgeInsets.fromLTRB(0.0, 20.0, 5.0, 0.0),
-child: Align(
-  alignment: Alignment.bottomRight,
-  child: ElevatedButton(
-  style: ElevatedButton.styleFrom(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10.0),
-    ),
-   
-  ),
-  child: Text(
-    'Login',
-    
-  ),
-  onPressed: () {},
-)
-),
-),
-
-   Text(
-    'New User? Create Account',
-    style: const TextStyle(fontWeight: FontWeight.bold),
-  ),
-   Padding(padding: EdgeInsets.fromLTRB(0, 10.0, 0, 0), 
-   child: Text(
-    'Forgot Password?',
-    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.cyan[800]),
-  ),
-   ),
-
-   
-],
-
-
-
-          
-          
-        ),
-       
-      ),
-      ),
+                  }
+                  
+                  ),
+              ]
+            )
+          ],
+        )
+        )
+      
     );
   }
-}    
+}  
+
+class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+  @override
+  State<MyWidget> createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<MyWidget> {
+
+List<Card> _buildGridCards(BuildContext context){
+
+  List<Product> products = mockProducts;
+print(products);
+    if (products.isEmpty) {
+    return const <Card>[];
+  }
+
+    final ThemeData theme = Theme.of(context);
+
+return products.map((product){
+    return Card(
+          clipBehavior: Clip.antiAlias,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              AspectRatio(
+                aspectRatio: 18.0/11.0,
+                child: Image.asset(product.ImageUrl),
+              ),
+             Expanded(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                 Text(
+                    product.name,
+                    style: theme.textTheme.titleLarge,
+
+                    maxLines: 1,
+                  ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    product.price,
+                    style: theme.textTheme.titleSmall,
+                  ),
+                  ],
+                ),
+              ),
+             ),
+              ],
+          ),
+    );
+}).toList();
+}
+  @override
+  Widget build(BuildContext context) {
+       return Scaffold(
+       appBar: AppBar(
+          title: const Text('SHRINE'), 
+          leading: IconButton(
+            icon: const Icon(
+              Icons.menu,
+              semanticLabel: 'menu',
+            ),
+            onPressed: (){
+              print('Menu Button');
+            },
+          ),
+
+          actions: <Widget>[
+            IconButton(
+            icon: const Icon(
+              Icons.search,
+              semanticLabel: 'search',
+            ),
+            onPressed: (){
+              print('Search Button');
+            },
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.tune,
+              semanticLabel: 'filter',
+            ),
+            onPressed: (){
+              print('Filter Button');
+            },
+          ),
+          ]
+        ),
+      body: GridView.count(
+        crossAxisCount: 2,
+        padding: const EdgeInsets.all(16.0),
+        childAspectRatio: 8.0/9.0,
+        children: _buildGridCards(context),
+          ),
+        
+      resizeToAvoidBottomInset: false,
+    );
+  }
+}
+
       
