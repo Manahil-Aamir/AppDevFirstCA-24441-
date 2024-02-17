@@ -97,12 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -114,42 +109,30 @@ class _MyHomePageState extends State<MyHomePage> {
 
         ],
       ),
-      body: Center(
+      body:SingleChildScrollView(
+      child: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
+
           mainAxisAlignment: MainAxisAlignment.start,
         
 children: <Widget>[
   Padding(
     padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
     child: SizedBox(
-      height: 100,
-      width: 100,
+      height: 85,
+      width: 85,
       child: ClipOval(
         child: Image.asset(
-          "assets/Flutter.jpg",
+          "assets/flutterlogo.png",
           fit: BoxFit.cover,
         ),
       ),
     ),
   ),
    Padding(
-   padding: EdgeInsets.fromLTRB(30.0, 5.0, 20.0, 0.0),
+   padding: EdgeInsets.fromLTRB(30.0, 20.0, 20.0, 0.0),
     child: TextField(
     decoration: InputDecoration(
       border: OutlineInputBorder(),
@@ -158,7 +141,7 @@ children: <Widget>[
   ),
    ),
    Padding(
-        padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
+        padding: EdgeInsets.fromLTRB(30.0, 10.0, 20.0, 0.0),
     child: TextField(
        obscureText: _hide,
     decoration: InputDecoration(
@@ -198,7 +181,7 @@ child: Align(
    Padding(padding: EdgeInsets.fromLTRB(0, 10.0, 0, 0), 
    child: Text(
     'Forgot Password?',
-    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.cyan),
+    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.cyan[800]),
   ),
    ),
 
@@ -211,7 +194,11 @@ child: Align(
           
         ),
        
-      
+      ),
+      ),
+    );
+  }
+}    
       
 //       floatingActionButton: 
 //       Padding(
@@ -244,7 +231,4 @@ child: Align(
        
 //     ])
 //  // This trailing comma makes auto-formatting nicer for build methods.
-    )
-    );
-  }
-}
+
