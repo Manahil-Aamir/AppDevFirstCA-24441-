@@ -117,10 +117,15 @@ List<Card> _buildGridCards(BuildContext context){
 
   List<Product> products = mockProducts;
 print(products);
-    if (products.isEmpty) {
-    return const <Card>[];
-  }
-
+if (products.isEmpty) {
+  return <Card>[
+    Card(
+      child: ListTile(
+        title: Text('No Data Found'),
+      ),
+    ),
+  ];
+}
     final ThemeData theme = Theme.of(context);
 
 return products.map((product){
