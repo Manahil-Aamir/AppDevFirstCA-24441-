@@ -55,40 +55,6 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   bool _hide = false;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-    void _decrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-     if(_counter >0) _counter--;
-     else _counter=0;
-    });
-  }
-
-  
-    void _reset() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-     _counter = 0;
-    });
-  }
   void _Visible() {
   setState(() {
     _hide = !_hide;
@@ -200,35 +166,3 @@ child: Align(
   }
 }    
       
-//       floatingActionButton: 
-//       Padding(
-//                 padding: EdgeInsets.fromLTRB(33, 0, 0, 0),
-//     child: Row(
-//          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-         
-//     children:
-    
-//     <Widget>[
-// FloatingActionButton(
-//         onPressed: _decrementCounter,
-//         tooltip: 'Decrement',
-//         child: const Icon(Icons.minimize_rounded),
-//       ),
-
-    
-//       FloatingActionButton(
-//         onPressed: _reset,
-//         tooltip: 'Reset',
-//         child: const Icon(Icons.reset_tv),
-//       ),
-      
-      
-//       FloatingActionButton(
-//         onPressed: _incrementCounter,
-//         tooltip: 'Increment',
-//         child: const Icon(Icons.add),
-//       ),
-       
-//     ])
-//  // This trailing comma makes auto-formatting nicer for build methods.
-
