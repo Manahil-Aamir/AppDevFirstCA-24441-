@@ -187,7 +187,7 @@ return products.map((product){
               semanticLabel: 'search',
             ),
             onPressed: (){
-             _evaluate();
+             print('Search Button');
             },
           ),
           IconButton(
