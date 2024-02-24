@@ -8,6 +8,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "auto_size_text",
+      "rootUri": "file:///C:/Users/Hp/AppData/Local/Pub/Cache/hosted/pub.dev/auto_size_text-3.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "boolean_selector",
       "rootUri": "file:///C:/Users/Hp/AppData/Local/Pub/Cache/hosted/pub.dev/boolean_selector-2.1.1",
       "packageUri": "lib/",
@@ -62,6 +68,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///C:/Users/Hp/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.18.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "js",
       "rootUri": "file:///C:/Users/Hp/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.6.5",
       "packageUri": "lib/",
@@ -84,6 +96,12 @@
       "rootUri": "file:///C:/Users/Hp/AppData/Local/Pub/Cache/hosted/pub.dev/material_color_utilities-0.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.13"
+    },
+    {
+      "name": "math_expressions",
+      "rootUri": "file:///C:/Users/Hp/AppData/Local/Pub/Cache/hosted/pub.dev/math_expressions-2.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "meta",
@@ -152,7 +170,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2024-02-17T11:38:52.024987Z",
+  "generated": "2024-02-18T16:42:44.905449Z",
   "generator": "pub",
   "generatorVersion": "2.19.1"
 }

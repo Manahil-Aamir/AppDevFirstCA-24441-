@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'model/product.dart';
-
+import 'package:math_expressions/math_expressions.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -35,7 +35,6 @@ class _LoginPageState extends State<LoginPage> {
 
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +112,8 @@ class MyWidget extends StatefulWidget {
 
 class _MyWidgetState extends State<MyWidget> {
 
+  
+
 List<Card> _buildGridCards(BuildContext context){
 
   List<Product> products = mockProducts;
@@ -186,7 +187,7 @@ return products.map((product){
               semanticLabel: 'search',
             ),
             onPressed: (){
-              print('Search Button');
+             _evaluate();
             },
           ),
           IconButton(
