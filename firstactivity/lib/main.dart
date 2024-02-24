@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'model/album_model.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -12,97 +16,108 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      
       theme: ThemeData(
         primarySwatch: Colors.purple,
+        useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const UserScreen(title: 'User'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class UserScreen extends StatefulWidget {
+  const UserScreen({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<UserScreen> createState() => _UserScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-    void _decrementCounter() {
-    setState(() {
-     if(_counter >0) _counter--;
-     else _counter=0;
-    });
-  }
-
+class _UserScreenState extends State<UserScreen> {
   
-    void _reset() {
-    setState(() {
-     _counter = 0;
-    });
+  late Future<List<Album>> futureAlbumsList;
+
+  Future<List<Album>> fetchAlbums() async{
+    Uri uriobject = Uri.parse('https://jsonplaceholder.typicode.com/albums');
+    
+    final response = await http.get(uriobject);
+
+    if(response.statusCode == 200){
+      List <dynamic> parsedListJson = jsonDecode(response.body);
+      List<Album> itemsList = List<Album>.from(
+        parsedListJson.map<Album>(
+          (dynamic user) => Album.fromJson(user),
+        )
+      );
+      return itemsList;
+      }
+
+      else{
+          throw Exception('Failed to find json');
+    }
+
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    futureAlbumsList = fetchAlbums();
+  }
+
+  @override
+Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('Users'),
+        centerTitle: true,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      
-      floatingActionButton: 
-      Padding(
-                padding: EdgeInsets.fromLTRB(33, 0, 0, 0),
-    child: Row(
-         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-         
-    children:
-    
-    <Widget>[
-FloatingActionButton(
-        onPressed: _decrementCounter,
-        tooltip: 'Decrement',
-        child: const Icon(Icons.minimize_rounded),
-      ),
+      body: SafeArea(
+        child: FutureBuilder(
+          future: fetchAlbums(), 
+          builder: ((context, snapshot) {
+            print(snapshot);
+          if (snapshot.hasData) {
+           return ListView.builder(
+              itemCount: snapshot.data?.length,
+              itemBuilder: (context, index) {
+                var album = snapshot.data![index];
+return Card(
+  child: ListTile(
+    leading: CircleAvatar(
+      child: Image.network('https://cdn2.vectorstock.com/i/1000x1000/26/01/young-executive-woman-profile-icon-vector-9692601.jpg'),
+    ),
+    title: Text(index.toString()),
+    subtitle: Text(album.title),
+    trailing: Icon(Icons.visibility),
+    onTap: () {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            height: MediaQuery.of(context).size.width,
+            width: MediaQuery.of(context).size.width,
+            child: Center(child: Text(album.title)),
+          );
+        },
+      );
+    },
+  ),
+);
 
-    
-      FloatingActionButton(
-        onPressed: _reset,
-        tooltip: 'Reset',
-        child: const Icon(Icons.reset_tv),
-      ),
-      
-      
-      FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
-       
-    ])
-    ));
+              },
+            );
+        
+          } else if (snapshot.hasError) {
+            return Text(snapshot.error.toString());
+          }
+
+          return const Text('text loading');
+        }),)
+          
+        ),
+      );
   }
 }
